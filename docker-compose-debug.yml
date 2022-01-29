@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  auth:
+    build: ./auth
+    image: auth
+    container_name: fastapi-auth
+    ports:
+      - '8001:8001'
+      - '5678:5678'
+    restart: always
+    environment:
+      PG_URL: 'postgresql://${USERS_PG_USER}:${USERS_PG_PASS}@users-postgres:5432/${USERS_PG_DB}'
+      JWT_SECRET_KEY: '${JWT_SECRET_KEY}'
+      JWT_PUBLIC_KEY: '${JWT_PUBLIC_KEY}'
+      JWT_PRIVATE_KEY: '${JWT_PRIVATE_KEY}'
+    depends_on:
+      - 'users-postgres'
+    command: bash -c "python -m debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn app.asgi:app --host=0.0.0.0 --port=8001"
+  
+  users-postgres:
+    image: 'postgres:10.6'
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: '${USERS_PG_PASS}'
+      POSTGRES_USER: '${USERS_PG_USER}'
+      POSTGRES_DB: '${USERS_PG_DB}'
+      PGDATA: '/tmp'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data

@@ -11,6 +11,7 @@ From root repo folder:
 ## Environment variables
 
 Application uses bunch of environment variables, all of them should be placed in .env file inside root repo folder.
+Example .env file is in repository.
 
 Database usage requires 3 environment variables:
 

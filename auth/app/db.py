@@ -60,7 +60,7 @@ Session = sessionmaker(bind=engine)
 
 
 def create_roles():
-    """Filling user roles in corresponding table"""
+    """Fills user roles in corresponding table"""
     s = Session()
     s.add(Role(name="User"))
     s.add(Role(name="Manager"))

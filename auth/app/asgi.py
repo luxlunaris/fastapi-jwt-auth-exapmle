@@ -39,7 +39,7 @@ def authjwt_exception_handler(_: Request, exc: AuthJWTException) -> JSONResponse
 
 @app.post("/sign-in")
 async def sign_in(user: UserJSON, Authorize: AuthJWT = Depends()) -> JSONResponse:
-    """Sign in user by given credentials"""
+    """Signs in user by given credentials"""
     Authorize.jwt_optional()
 
     current_user = Authorize.get_jwt_subject()
@@ -73,7 +73,7 @@ async def sign_in(user: UserJSON, Authorize: AuthJWT = Depends()) -> JSONRespons
 
 @app.post("/sign-up", response_class=JSONResponse)
 async def sign_up(user: UserSignUpJSON, Authorize: AuthJWT = Depends()) -> JSONResponse:
-    """Sign up user by given credentials"""
+    """Signs up user by given credentials"""
     Authorize.jwt_optional()
 
     current_user = Authorize.get_jwt_subject()
@@ -111,7 +111,7 @@ async def sign_up(user: UserSignUpJSON, Authorize: AuthJWT = Depends()) -> JSONR
 
 @app.post("/sign-out")
 async def sign_out(Authorize: AuthJWT = Depends()) -> Response:
-    """Sign out user if they are signed in"""
+    """Signs out user if they are signed in"""
     Authorize.jwt_required()
     Authorize.unset_jwt_cookies()
 

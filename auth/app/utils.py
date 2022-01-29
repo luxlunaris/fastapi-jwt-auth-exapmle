@@ -7,10 +7,10 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password) -> str:
-    """Turn given password into hash-string"""
+    """Turns given password into hash-string"""
     return cast(str, pwd_context.hash(password))
 
 
 def verify_password(plain_password, hashed_password) -> bool:
-    """Compare given password to hash-string"""
+    """Compares given password to hash-string"""
     return cast(bool, pwd_context.verify(plain_password, hashed_password))

@@ -4,6 +4,7 @@ import bs4
 
 
 def test_auth(client, clean_test_data) -> None:
+    """Authentication scenarios check"""
     response = client.post("/sign-out")
     assert response.json()["detail"] == "Missing cookie access_token_cookie"
     assert response.status_code == 401
